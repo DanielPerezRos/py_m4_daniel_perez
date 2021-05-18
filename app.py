@@ -32,7 +32,7 @@ while True:
             print(vehicle)
         else:
             print("El vehículo solicitado no existe")
-    if option == 3:
+    if option == 3: # Crear nuevo vehículo
         vehicle = input_new_vehicle()
         check = create(vehicle)
         if check:

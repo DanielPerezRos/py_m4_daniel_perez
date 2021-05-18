@@ -96,23 +96,21 @@ def find_one(id_vehicle):
 def input_new_vehicle():
 
     print("Introduzca los datos del nuevo vehículo: ")
-    fabricante = print("Introduce Fabricante: ")
-    modelo = print("Introduce modelo: ")
-    color = print("Introduce color: ")
+    fabricante = input("Introduce Fabricante: ")
+    modelo = input("Introduce modelo: ")
+    color = input("Introduce color: ")
 
-    has_motor = bool(input("¿Tiene motor? (0- no, 1 - si"))
+    has_motor = bool(int(input("¿Tiene motor? (0- no, 1 - si): ")))
     if has_motor:
-        fabricante = input("introduce el fabricante: ")
-        modelo = input("introduce el Modelo: ")
-        color = input("introduce la RAM")
-        motor = Motor(None, fabricante, modelo, color)
+        cc = int(input("introduce cc: "))
+        cv = int(input("introduce cv: "))
+        peso = int(input("introduce el peso: "))
+        motor = Motor(None, cc, cv, peso)
     else:
-        motor = None
+        motor = Motor(None, None, None, None)
 
     return Vehicle(None, fabricante, modelo, color, motor)
 
-
-    fabricante = print("Introduce Fabricante: ")
 
 def create_motor(motor):
     if motor is None:
@@ -120,14 +118,18 @@ def create_motor(motor):
     database = con.connect(host="127.0.0.1", port="3306", user="root", password="admin", database="python_mysql")
     cursor = database.cursor()
 
-    if vehicle.motor is not None:
-        params = (
-            vehicle.motor.manufacturer,
-            vehicle.motor.model,
-            vehicle.motor.ram,
-        )
-        cursor.execute(sql_insert_motor, params)
-        vehicle.motor.id = cursor.lastrowid
+
+    params = (
+        motor.cc,
+        motor.cv,
+        motor.peso,
+    )
+    cursor.execute(sql_insert_motor, params)
+    database.commit()
+    cursor.close()
+    database.close()
+    return cursor.lastrowid
+
 
 def create(vehicle):
     if vehicle is None:
@@ -139,10 +141,10 @@ def create(vehicle):
 
     # Insertar usuario
     params = (
-        vehicle.first_name,
-        vehicle.last_name,
-        vehicle.age,
-       id_motor
+        vehicle.fabricante,
+        vehicle.modelo,
+        vehicle.color,
+        id_motor
     )
     cursor.execute(sql_insert_vehicle, params)
     database.commit()
