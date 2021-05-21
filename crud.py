@@ -2,6 +2,8 @@
 Funciones CRUD
 """
 # 1 importar el driver
+from os.path import exists
+
 import mysql.connector as con
 from sql import *
 from models import Vehicle, Motor
@@ -158,13 +160,52 @@ def create(vehicle):
 
 
 def input_update_vehicle():
-    pass
+    id_user = int(input("A continuación introduzca el id del vehículo que desea editar: "))
+    if not exists(id_user):
+        print("El vehículo solicitado no existe")
+        return None
+
+    fabricante = input("Introduce Fabricante: ")
+    modelo = input("Introduce Modelo: ")
+    color = input("Introduce Color: ")
+
+    return Vehicle(id_user, fabricante, modelo, color, None)
 
 def update(vehicle):
-    pass
+    if vehicle is None:
+        return False
+
+    database = con.connect(host="127.0.0.1", port="3306", user="root", password="admin", database="taller")
+    cursor = database.cursor()
+
+    params = (
+        vehicle.fabricante,
+        vehicle.modelo,
+        vehicle.color,
+        vehicle.id
+    )
+    cursor.execute(sql_update_vehicle, params)
+    database.commit()
+    result_num = cursor.rowcount  # 1 vehículo modificado
+    cursor.close()
+    database.close()
+    return False if result_num == 0 else True
 
 def delete_one(id_vehicle):
-    pass
+    if not exists(id_vehicle):
+        print("El usuario solicitado no existe")
+        return False
+
+    database = con.connect(host="127.0.0.1", port="3306", user="root", password="admin", database="taller")
+    cursor = database.cursor()
+
+    params = (id_vehicle,)
+    cursor.execute(sql_delete_vehicle, params)
+    database.commit()
+    result_num = cursor.rowcount  # 1 usuario eliminado
+    cursor.close()
+    database.close()
+    return False if result_num == 0 else True
 
 def delete_all():
     pass

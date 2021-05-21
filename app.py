@@ -36,13 +36,13 @@ while True:
         vehicle = input_new_vehicle()
         check = create(vehicle)
         if check:
-            print("vehículo creado correctamente")
+            print("Vehículo creado correctamente")
 
     if option == 4:
         vehicle = input_update_vehicle()
         check = update(vehicle)
         if check:
-            print("vehículo editado correctamente")
+            print("Vehículo editado correctamente")
 
     if option == 5:
         id_vehicle = int(input("Introduce el id del vehículo: "))
@@ -58,4 +58,4 @@ while True:
     if option == 7:
         break;
 
-print("Hasta la próxima")
+print("¡Hasta la próxima!")
