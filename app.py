@@ -54,9 +54,13 @@ while True:
             print("Vehículo borrado correctamente")
 
     if option == 6:
-        check = delete_all()
-        if check:
-            print("vehículos borrados correctamente")
+        print("Esto borrará todos los vehículos de la base de datos.")
+        confirm = bool(int(input("¿Está seguro de que quiere borrar todos? (1 Sí, 0 No)")))
+        if not confirm:
+            continue
+
+        delete_all()
+        print("Usuarios borrados correctamente")
 
     if option == 7:
         break;
