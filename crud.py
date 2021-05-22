@@ -213,5 +213,10 @@ def delete_one(id_vehicle):
     database.close()
     return False if result_num == 0 else True
 
+
 def delete_all():
-    pass
+    database = con.connect(host="127.0.0.1", port="3306", user="root", password="admin", database="taller")
+    cursor = database.cursor()
+    cursor.execute(sql_delete_vehicles)
+    cursor.close()
+    database.close()

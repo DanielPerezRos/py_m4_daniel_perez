@@ -21,8 +21,11 @@ while True:
     option = int(input("Introduce una opción: "))
     if option == 1: #1 - Consultar vehículos
         vehicles = find_all()
-        print("Listado de vehículos en base de datos: ")
-        print(vehicles)
+        if vehicles != []:
+            print("Listado de vehículos en base de datos: ")
+            print(vehicles)
+        else:
+            print("No hay vehículos en la BBDD")
 
     if option == 2: # Consultar vehículo por id
         id_vehicle = int(input("Introduce el id de vehículo: "))
