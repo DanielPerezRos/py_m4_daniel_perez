@@ -28,6 +28,7 @@ def init_schema():
     cursor.close()
     database.close()
 
+
 def init_schema_execute_multi():
     database = con.connect(host="127.0.0.1", port="3306", user="root", password="admin")
     cursor = database.cursor()
@@ -37,6 +38,7 @@ def init_schema_execute_multi():
     cursor.execute(sql_content)
     cursor.close()
     database.close()
+
 
 def load_data():
     cursor = database.cursor()
@@ -53,6 +55,7 @@ def load_data():
 
     cursor.close()
     database.close()
+
 
 def find_all():
     database = con.connect(host="127.0.0.1", port="3306", user="root", password="admin", database="python_mysql")
@@ -76,6 +79,7 @@ def find_all():
     database.close()
     return vehicles
 
+
 def find_one(id_vehicle):
     database = con.connect(host="127.0.0.1", port="3306", user="root", password="admin", database="python_mysql")
     cursor = database.cursor()
@@ -94,6 +98,7 @@ def find_one(id_vehicle):
     vehicle = Vehicle(result[0], result[1], result[2], result[3], motor)
 
     return vehicle
+
 
 def input_new_vehicle():
 
@@ -158,10 +163,9 @@ def create(vehicle):
     return False if result_num == 0 else True
 
 
-
 def input_update_vehicle():
-    id_user = int(input("A continuación introduzca el id del vehículo que desea editar: "))
-    if not exists(id_user):
+    id_vehicle = int(input("A continuación introduzca el id del vehículo que desea editar: "))
+    if not exists(id_vehicle):
         print("El vehículo solicitado no existe")
         return None
 
@@ -169,7 +173,8 @@ def input_update_vehicle():
     modelo = input("Introduce Modelo: ")
     color = input("Introduce Color: ")
 
-    return Vehicle(id_user, fabricante, modelo, color, None)
+    return Vehicle(id_vehicle, fabricante, modelo, color, None)
+
 
 def update(vehicle):
     if vehicle is None:
@@ -191,9 +196,10 @@ def update(vehicle):
     database.close()
     return False if result_num == 0 else True
 
+
 def delete_one(id_vehicle):
     if not exists(id_vehicle):
-        print("El usuario solicitado no existe")
+        print("El vehículo solicitado no existe")
         return False
 
     database = con.connect(host="127.0.0.1", port="3306", user="root", password="admin", database="taller")

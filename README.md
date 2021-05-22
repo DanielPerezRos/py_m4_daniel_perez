@@ -1,5 +1,8 @@
 # Aplicación CRUD, que lea datos de vehículos por consola y los almacene en base datos MySQL utilizando objetos. La aplicación ofrece las siguientes opciones:
 
+La opción de borrar vehículo no reconoce el vehículo con id 3, al hacer debug llega el parámetro,
+pero continúa como si el id no existiera
+
 1 – Consultar vehículos: devuelve los vehículos que tiene guardados en una estructura de datos.
 
 2 – Consultar un vehículo: solicita el id del vehículo y en base a eso mostrar los datos de ese vehículo y del motor asociado.
